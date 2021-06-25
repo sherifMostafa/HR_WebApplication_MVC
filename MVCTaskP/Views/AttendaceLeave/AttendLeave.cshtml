@@ -1,0 +1,58 @@
+﻿@model MVCTaskP.Models.Attendance_Leave
+@{
+    ViewBag.Title = "AttendLeave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">
+                        Attendance And Leave
+                    </h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("AttendLeave", "AttendaceLeave"))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                @Html.Label("Choose Employee")
+                                @Html.DropDownListFor(m => m.Emp_Id, ViewBag.Employees as SelectList, "-- Select --", new { @class = "form-control" })
+                                @*@Html.DropDownListFor(m => m.Emp_Id, (IEnumerable<SelectListItem>)ViewBag.Employees, new { @class = "form-control" })*@
+                                @Html.ValidationMessageFor(m => m.Emp_Id)
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(n => n.Date)
+                                @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                <input type="date" name="Date" class="form-control"/>
+                                @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                @Html.ValidationMessageFor(n => n.Date)
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                @Html.LabelFor(n => n.Attend_Time)
+                                @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                <input type="time" name="Attend_Time" class="form-control"/>
+                                @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                @Html.ValidationMessageFor(n => n.Attend_Time)
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(n => n.Leave_Time)
+                                <input type="time" name="Leave_Time" class="form-control"/>
+                                @Html.ValidationMessageFor(n => n.Leave_Time)
+                            </div>
+                        </div>
+                        <h5 class="text-danger">@ViewBag.Error</h5>
+                        <input type="submit" value="Add" class="btn btn-primary" />
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

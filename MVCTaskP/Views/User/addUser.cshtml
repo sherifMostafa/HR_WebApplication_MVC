@@ -1,0 +1,68 @@
+﻿@model MVCTaskP.Models.User
+@{
+    ViewBag.Title = "addUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Add</h3></div>
+                <div class="card-body">
+
+                    @using (Html.BeginForm("addUser", "User"))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                    @Html.LabelFor(n => n.Name)
+                                    @Html.TextBoxFor(n => n.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(n => n.Name)
+                            </div>
+                            <div class="col-md-6">
+                               
+                                    @Html.LabelFor(n => n.age)
+                                    @Html.TextBoxFor(n => n.age, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(n => n.age)
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                
+                                    @Html.LabelFor(n => n.UserName)
+                                    @Html.TextBoxFor(n => n.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(n => n.UserName)
+                                
+                            </div>
+                            <div class="col-md-6">
+                                @Html.Label("Choose Group")
+                                @Html.DropDownListFor(m => m.roleId, (SelectList)ViewBag.roles, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.roleId)
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                    @Html.LabelFor(n => n.Password)
+                                    @Html.PasswordFor(n => n.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(n => n.Password)
+                            </div>
+                            <div class="col-md-6">
+                                    @Html.LabelFor(n => n.ConfirmPassword)
+                                    @Html.PasswordFor(n => n.ConfirmPassword, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(n => n.ConfirmPassword)
+                            </div>
+                        </div>
+                        <h5 class="text-danger">@ViewBag.Error</h5>
+                        <input type="submit" value="Add" class="btn btn-primary" />
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

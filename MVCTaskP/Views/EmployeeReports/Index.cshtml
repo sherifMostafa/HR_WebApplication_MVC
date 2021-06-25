@@ -1,0 +1,81 @@
+﻿@model MVCTaskP.Models.Employee
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container font-monospace fw-bold">
+    <div class="text-center h1 m-1">Details of Employee <br /> </div>
+    <div class="h2 text-center mb-5">Year @ViewBag.Year Month @ViewBag.Month</div>
+    <table class="table table-striped">
+        <thead class="dt-head-center">
+            <tr>
+                <td>Employee </td>
+                <td>Atendance</td>
+                <td>Leave</td>
+                <td>Month </td>
+            </tr>
+          
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Name</td>
+                <td>@Model.Atendance</td>
+                <td>@Model.Leave</td>
+                <td>@ViewBag.Month</td>
+            </tr>
+            <tr>
+                <td>Attend Days in The Month</td>
+                <td>Total WeekEnd</td>
+                <td>Officail Vacancy Days in This Month</td>
+                <td>Emergency leave Days in This Month</td>
+                <td class="text-danger">days of absence</td>
+                <td>Over Time Hour</td>
+                <td>Deduction Time Hour</td>
+            </tr>
+            <tr>
+                <td>@ViewBag.AttendDaysinTheMonth</p></td>
+                <td>@ViewBag.WeekEnd</td>
+                <td>@ViewBag.OffcialVacencyintTheMonth</td>
+                <td>@ViewBag.EmergencyVacencyintTheMonth</td>
+                <td class="text-danger">@ViewBag.DaysAbsence</td>
+                <td>@ViewBag.over Hour</td>
+                <td>@ViewBag.dect Hour</td>
+            </tr>
+            <tr>
+                <td>total Month Salary </td>
+                <td>/</td>
+                <td>(</td>
+                <td class="text-danger">Days of Month @ViewBag.Month</td>
+                <td>X</td>
+                <td>Total Hours Must He Work nt day</td>
+                <td>)</td>
+                <td>=</td>
+                <td class="text-success fw-bold">hourly Rate</td>
+            </tr>
+            <tr>
+                <td>@Model.Salary</td>
+                <td>/</td>
+                <td>(</td>
+                <td class="text-danger"><p>@ViewBag.numberOfDaysInThisMonth</p></td>
+                <td>X</td>
+                <td>@ViewBag.numberOfHoursMustHeWork </td>
+                <td>)</td>
+                <td>=</td>
+                <td class="text-success fw-bold">@ViewBag.HourRate</td>
+            </tr>
+            <tr>
+                <td>OverTime</td>
+                <td><p>@ViewBag.overSalary</p> </td>
+            </tr>
+            <tr>
+                <td>deduction</td>
+                <td><p>@ViewBag.deducSalary</p> </td>
+            </tr>
+            <tr class="alert alert-success">
+                <td>Total Salary</td>
+                <td><p>@ViewBag.totalSalary </p> </td>
+            </tr>
+        </div>
+    </tbody>
+  </table>
+</div>

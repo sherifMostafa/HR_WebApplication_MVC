@@ -1,0 +1,61 @@
+﻿
+@model MVCTaskP.Models.VacencySetting
+@{
+    ViewBag.Title = "EditeEmergency";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Edite Emergency Vacation</h3></div>
+                <div class="card-body">
+
+                    @using (Html.BeginForm("EditeEmergency", "EmergencyVanacy"))
+                    {
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            @Html.LabelFor(n => n.employee.Name)
+                            <input type="text" value="@Model.employee.Name" disabled class="form-control" />
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                @Html.LabelFor(n => n.Date) 
+                                <input type="datetime" name="Date" class="form-control" placeholder="dd / mm / yyyy" value=" @Model.Date.ToString("dd / MM / yyyy")">
+                                @*@Html.TextBoxFor(n => n.Date, "{0:d MMM yyyy}", new { @Value = Model.Date.ToString("MM / dd / yyyy"), @type = "date", @class = "form-control" })*@
+                                @Html.ValidationMessageFor(n => n.Date)
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row mb-3">
+
+                            <div class="row mb-3">
+                                <div class="col-md-8">
+                                    @Html.Label("Reason")
+                                    @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                    <input type="text" name="Name" class="form-control" value="@Model.Name"/>
+                                    @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                    @Html.ValidationMessageFor(n => n.Name)
+                                </div>
+                            </div>
+
+                        </div>
+                        <h5 class="text-danger">@ViewBag.Error</h5>
+                        <input type="submit" value="Edite" class="btn btn-primary" />
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

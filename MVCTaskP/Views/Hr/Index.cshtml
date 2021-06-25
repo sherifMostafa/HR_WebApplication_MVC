@@ -1,0 +1,97 @@
+﻿@model List<MVCTaskP.Models.Employee>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div>
+        <h1 class="text-center mb-5">Human Resource</h1>
+    </div>
+    <div class="container-fluid px-4">
+
+        <div class="row">
+            <div class="col-xl-3 col-md-3 mr-2">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Employee Number : @Model.Count</div>
+                </div>
+            </div>  
+            <div class="col-xl-3 col-md-3 mr-2">
+                <div class="card bg-primary text-white mb-4">
+                    <a class="btn btn-primary" href="/AttendaceLeave/showAttendanceAndLeave"> Show Attendance and Leave</a>
+                </div>
+            </div> 
+            <div class="col-xl-3 col-md-3 mr-2">
+                <div class="card bg-primary text-white mb-4">
+                    <a class="btn btn-primary" href="/OfficialVanacy/showOfficalVacation"> Show Official Vacancy</a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-3 mr-2">
+                <div class="card bg-primary text-white mb-4">
+                    <a class="btn btn-primary" href="/EmergencyVanacy/showEmergencyVacation"> Show Emergency Vacancy</a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-3 mr-2">
+                <div class="card bg-primary text-white mb-4">
+                    
+                    <a class="btn btn-primary" href="/Employee/addEmp">Add Employee</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <h1 class="text-center m-3">Employees</h1>
+            <div class="card-body">
+                <table class="table table-hover" id="Users">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Salary</th>
+                            <th>Attendance </th>
+                            <th>Leave Time</th>
+                            <th>Delete</th>
+                            <th>Edite</th>
+                            <th>View Details</th>
+                            
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var emp in Model)
+                        {
+                        <tr>
+                            <td>@emp.Id</td>
+                            <td>@emp.Name</td>
+                            <td>@emp.Salary</td>
+                            <td>@emp.Atendance AM</td>
+                            <td>@emp.Leave PM</td>
+
+                            <td><input type="button" value="delete" data-user-id="@emp.Id" class="btn btn-danger js-delete" /></td>
+                            <td>@Html.ActionLink("Edite", "EditeEmployee", "HR", new { id = emp.Id }, new { @class = "btn btn-info" })</td>
+                            <td>@Html.ActionLink("ViewDetails Month :" + DateTime.Now.Month.ToString(), "Index", "EmployeeReports", new { id = emp.Id, Year = int.Parse(DateTime.Now.Year.ToString()), Month = int.Parse(DateTime.Now.Month.ToString()) }, new { @class = "btn btn-primary" })</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#Users").DataTable();
+        });
+
+        $("#Users .js-delete").on("click", function () {
+            var button = $(this);
+            if (confirm("are you sure you want to delete")) {
+                $.get(`/Hr/delete/${button.attr("data-user-id")}`, function (data) {
+                    button.parents("tr").remove();
+                });
+            }
+        });
+    </script>
+}

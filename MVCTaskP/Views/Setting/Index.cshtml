@@ -1,0 +1,135 @@
+﻿@model MVCTaskP.Models.settings
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Settings <i class="fa glyphicon-facetime-video"></i></h3></div>
+                            <div class="card-body">
+                                @if (TempData["Sucess"] != null)
+                                {
+                                    <div class="alert-success p-1">@TempData["Sucess"].ToString()</div>
+                                }
+                                @using (Html.BeginForm("ApplySetting", "Setting"))
+                                {
+                                    <div class="row mb-3">
+                                        <div class="alert-warning p-2 text-center fw-bold fs-5">
+                                            Check The WeekEnd
+                                        </div>
+                                        <div class="col-md-12 m-5">
+                                            <div class="row">
+
+                                                <div class="col-md-3 my-1">
+
+
+                                                    @Html.Label("Satarday")
+                                                    @if (Model.weekends.Contains("satarday"))
+                                                    {
+                                                        <input type="checkbox" name="satarday" class="form-check-input" checked value="true">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="satarday" class="form-check-input" value="true">
+                                                    }
+                                                </div>
+                                                <div class="col-md-3 my-1">
+                                                    @Html.Label("SunDay")
+                                                    @if (Model.weekends.Contains("SunDay"))
+                                                    {
+                                                        <input type="checkbox" name="SunDay" class="form-check-input" checked value="true">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="SunDay" class="form-check-input" value="true">
+                                                    }
+                                                </div>
+                                                <div class="col-md-3 my-1">
+                                                    @Html.Label("MonDay")
+                                                    @if (Model.weekends.Contains("MonDay"))
+                                                    {
+                                                        <input type="checkbox" name="MonDay" class="form-check-input" checked value="true">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="MonDay" class="form-check-input" value="true">
+                                                    }
+                                                </div>
+                                                <div class="col-md-3 my-1">
+                                                    @Html.Label("TuesDay")
+                                                    @if (Model.weekends.Contains("TuesDay"))
+                                                    {
+                                                        <input type="checkbox" name="TuesDay" class="form-check-input" checked value="true">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="TuesDay" class="form-check-input" value="true">
+                                                    }
+                                                </div>
+                                                <div class="col-md-3 my-1">
+                                                    @Html.Label("wednesday")
+                                                    @if (Model.weekends.Contains("wednesday"))
+                                                    {
+                                                        <input type="checkbox" name="wednesday" class="form-check-input" checked value="true">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="wednesday" class="form-check-input" value="true">
+                                                    }
+                                                </div>
+
+                                                <div class="col-md-3 my-1">
+                                                    @Html.Label("thursday")
+                                                    @if (Model.weekends.Contains("thursday"))
+                                                    {
+                                                        <input type="checkbox" name="thursday" class="form-check-input" checked value="true">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="thursday" class="form-check-input" value="true">
+                                                    }
+                                                </div>
+
+                                                <div class="col-md-3 my-1">
+                                                    @Html.Label("friday")
+                                                    @if (Model.weekends.Contains("Friday"))
+                                                    {
+                                                        <input type="checkbox" name="Friday" class="form-check-input" checked value="true">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="Friday" class="form-check-input" value="true">
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="alert-warning p-2 text-center fw-bold fs-5">
+                                            Over Time And Deduction
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col-md-12">
+                                                <div class="my-2">OverTime  <span class="text-danger">X </span> <input type="number" name="over" value="@Model.over" min="1" max="5" step=".1" /></div>
+                                                <div class="my-2">deduction <span class="text-danger">X </span> <input type="number" name="deduction" value="@Model.deduction" min="1" max="5" step=".1" /></div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <input type="submit" class="btn btn-primary" value="Update Setting">
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+

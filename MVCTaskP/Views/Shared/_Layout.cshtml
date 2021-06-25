@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet"/>*@
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="~/Content/css/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+  
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        @if (Session["userid"] == null)
+        {
+            <a class="navbar-brand ps-3" href="/Login"> Login </a>
+
+        }
+        else
+        {
+            <a class="navbar-brand ps-3" href="/Login/logout"> Logout </a>
+
+        }
+        <!-- Sidebar Toggle-->
+        @*<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>*@
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+            </div>
+
+        </form>
+        <!-- Navbar-->
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                @if (Session["userid"] != null)
+                {
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">NavBar</div>
+                            @{
+                                MVCTaskP.Models.Piocontext db = new MVCTaskP.Models.Piocontext();
+                                int id = int.Parse(Session["userid"].ToString());
+                                MVCTaskP.Models.User currentUser = db.Users.Find(id);
+                                var roleu = db.Roles.Where(n => n.Id == currentUser.roleId).FirstOrDefault();
+                                var privss = db.Roleprivs.Where(n => n.RoleId == roleu.Id);
+                                string s = "";
+                            }
+
+                            @foreach (var item in privss)
+                            {
+                                s += item.priv.Name + ", ";
+                            }
+
+                            <!--Contains-->
+                            @if (s.Contains("Dashboard"))
+                            {
+                                <a class="nav-link collapsed" href="/Dashboard" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                    Dashboard
+                                    <div class="sb-sidenav-collapse-arrow"></div>
+                                </a>
+                            }
+
+                            @if (s.Contains("Users"))
+                            {
+                                <a class="nav-link collapsed" href="/User" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                    Users
+                                    <div class="sb-sidenav-collapse-arrow"></div>
+                                </a>
+                            }
+                            @if (s.Contains("CreateGroup"))
+                            {
+                                <a class="nav-link collapsed" href="/CreateGroup" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                    Create Group
+                                    <div class="sb-sidenav-collapse-arrow"></div>
+                                </a>
+                            }
+                            @if (s.Contains("Hr"))
+                            {
+                                <a class="nav-link collapsed" href="/Hr" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                      Hr
+                                    <div class="sb-sidenav-collapse-arrow"></div>
+                                </a>
+                                <a class="nav-link collapsed" href="/AttendaceLeave/AttendLeave" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                    Add Attendance
+                                    <div class="sb-sidenav-collapse-arrow"></div>
+                                </a>
+                                <a class="nav-link collapsed" href="/OfficialVanacy/Officialvacation" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                    Add Official Vacancy
+                                    <div class="sb-sidenav-collapse-arrow"></div>
+                                </a>
+                                <a class="nav-link collapsed" href="/EmergencyVanacy/Emergencyleave" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                    Add Emergency Vacancy
+                                    <div class="sb-sidenav-collapse-arrow"></div>
+                                </a> 
+                                <a class="nav-link collapsed" href="/Setting/Index" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                    Settings
+                                    <div class="sb-sidenav-collapse-arrow"></div>
+                                </a>
+                            }
+
+                            <a class="nav-link collapsed" href="/User/welcome" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                My Profile
+                                <div class="sb-sidenav-collapse-arrow"></div>
+                            </a>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="sb-sidenav-menu container">
+
+                        <div class=" nav">
+
+                            <p class="nav-link">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Pioneer
+                            </p>
+                        </div>
+                    </div>
+                }
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Sherif Mostafa
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            @RenderBody()
+        </div>
+
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+    @RenderSection("scripts", required: false)
+    <script>
+        //$(document).ready(function () {
+        //    if (window.location.href == "http://localhost:55876/Login") {
+
+        //        let t = $("#sess").text();
+
+        //        console.log(t == null);
+
+
+        //        //if ($("#sess").text() != " ") {
+        //        //    window.location.href == "http://localhost:55876/User/welcome";
+        //        //    console.log("sjh");
+        //        //}
+
+        //    }
+        //});
+
+
+
+            //function DisableBackButton() {
+            //    window.history.forward()
+            //}
+            //DisableBackButton();
+            //window.onload = DisableBackButton;
+            //window.onpageshow = function (evt) { if (evt.persisted) DisableBackButton() }
+            //window.onunload = function () { void (0) }
+    </script>
+</body>
+</html>

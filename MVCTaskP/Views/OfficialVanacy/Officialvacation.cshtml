@@ -1,0 +1,45 @@
+﻿@model MVCTaskP.Models.VacencyT
+@{
+    ViewBag.Title = "Officialvacation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Official Vacation</h3></div>
+                <div class="card-body">
+
+                    @using (Html.BeginForm("Officialvacation", "OfficialVanacy"))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                @Html.LabelFor(n => n.VDate)
+                                @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                <input type="datetime" name="VDate" class="form-control" placeholder="dd / mm">
+                                @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                @Html.ValidationMessageFor(n => n.VDate)
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(n => n.Name)
+                                    @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                    <input type="text" name="Name" class="form-control" />
+                                    @*@Html.TextBoxFor(n => n.Atendance.ToString(), new { @class = "form-control" })*@
+                                    @Html.ValidationMessageFor(n => n.Name)
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <h5 class="text-danger">@ViewBag.Error</h5>
+                        <input type="submit" value="Add" class="btn btn-primary" />
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

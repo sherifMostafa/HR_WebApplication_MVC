@@ -1,0 +1,94 @@
+﻿@model List<MVCTaskP.Models.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container-fluid px-4">
+       
+
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mr-2">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">User Number : @Model.Count</div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6 mr-2">
+
+            </div>
+            <div class="col-xl-3 col-md-6 mr-2">
+                <div class="card bg-primary text-white mb-4">
+                    @*@Html.ActionLink("Add User" , "addUser" , "User" , new { @class="btn btn-primary" })*@
+                    <a class="btn btn-primary" href="/User/addUser">Add User</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                DataTable Example
+            </div>
+            <div class="card-body">
+                <table class="table table-hover" id="Users">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Age</th>
+                            <th>Password</th>
+                            <th>role Name</th>
+                            <th>Delete</th>
+                            <th>Update</th>
+                            <th>ChangePassword</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var us in Model)
+                        {
+                            <tr>
+                                <td>@us.Id</td>
+                                <td>@us.Name</td>
+                                <td>@us.UserName</td>
+                                <td>@us.age</td>
+                                <td>@us.Password</td>
+                                <td>@us.role.Name</td>
+                                <td> <input type="button" value="delete" data-user-id="@us.Id" class="btn btn-danger js-delete" /></td>
+
+                               
+
+                                
+                                <td> @Html.ActionLink("edite", "edite", "User", new { id = us.Id }, new { @class = "btn btn-primary" })</td>
+                               
+                                <td> @Html.ActionLink("edite password", "editePassword", "User", new { id = us.Id }, new { @class = "btn btn-info" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $("#Users").DataTable();
+        });
+        $("#Users .js-delete").on("click", function () {
+            var button = $(this);
+            if (confirm("are you sure you want to delete")) {
+                $.get(`/user/delete/${button.attr("data-user-id")}`, function (data) {
+                    button.parents("tr").remove();
+                });
+            }
+        });
+    </script>
+
+}
+
